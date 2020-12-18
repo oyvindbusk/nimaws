@@ -37,7 +37,7 @@ type
 const iso_8601_aws = "yyyyMMdd'T'HHmmss'Z'"
 
 proc getAmzDateString*():string=
-  return format(getGMTime(getTime()), iso_8601_aws)
+  return format(utc(getTime()), iso_8601_aws)
 
 proc newAwsClient*(credentials:(string,string),region,service:string):AwsClient=
   let
