@@ -91,7 +91,7 @@ proc request*(client:var AwsClient,params:Table):Future[AsyncResponse]=
   if client.key_expires <= getTime():
     client.scope.date = getAmzDateString()
     client.key = create_aws_authorization(client.credentials, req, client.httpClient.headers.table, client.scope)
-    client.key_expires = getTime() + initInterval(minutes=5)
+    client.key_expires = getTime() + initDuration(minutes=5)
   else:
     let auth = create_aws_authorization(client.credentials[0], client.key, req, client.httpClient.headers.table, client.scope)
     client.httpClient.headers.add("Authorization", auth)
